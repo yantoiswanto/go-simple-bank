@@ -5,6 +5,11 @@
 * [Install & use Docker + Postgres](#install--use-docker--postgres)
 * [Install database migration](#install-database-migration)
 * [Setup Makefile](#setup-makefile)
+* [Generate CRUD Golang code from SQL | Compare db/sql, gorm, sqlx & sqlc](#generate-crud-golang-code-from-sql--compare-dbsql-gorm-sqlx--sqlc)
+  * [DATABASE / SQL](#database--sql) 
+  * [GORM](#gorm)
+  * [SQLX](#sqlx)
+  * [SQLC](#sqlc)
 _____________________
 
 ## Design DB schema and generate SQL code with dbdiagram.io
@@ -91,4 +96,32 @@ migratedown:
 	migrate -path db/migration -database "postgresql://postgres:admin@localhost:5432/db_simple_bank?sslmode=disable" -verbose down
 
 .PHONY: postgres cretedb dropdb migrateup migratedown
+```
+
+## Generate CRUD Golang code from SQL | Compare db/sql, gorm, sqlx & sqlc
+
+### DATABASE / SQL
+* Very fast & straightforward
+* Manual mapping SQL fields to variables
+* Easy to make mistakes, not caught until runtime
+
+### [**GORM**](https://github.com/go-gorm/gorm)
+* CRUD functions already implemented very short production code
+* Must learn to write queries using gorm's function
+* Run slowly on high load
+
+### [**SQLX**](https://github.com/jmoiron/sqlx)
+* Quite fast & easy to use
+* Fields mapping via query text & struct tags
+* Failure won't occur runtime
+
+### [**SQLC**](https://github.com/sqlc-dev/sqlc)
+
+* very fast & easy to use
+* Automatic code generation
+* Catch SQL query errors before generation codes
+
+#### SQLC Install
+```shell
+brew install sqlc
 ```
